@@ -1,4 +1,8 @@
 #!/bin/bash
+# https://stackoverflow.com/questions/53104989/how-to-extract-the-photo-video-component-of-a-mvimg
+# extract videos
+
+#!/bin/bash
 
 set -e
 
@@ -20,14 +24,16 @@ function extract {
 
       # extract everything beginning at offset to another file
       tail -c +$offset "$file" > "$newFile"
+
+      echo "Extracted video from $file to $newFile"
     else
       echo "Not processing $file because the string 'ftypmp42' did not occur exactly once in file"
     fi
   fi
 }
 
-for f in "$@"; do
-  if [[ "$f" == MVIMG*jpg ]]; then
+for f in ./MVIMG*jpg; do
+  if [[ "$f" == ./MVIMG*jpg ]]; then
     extract "$f"
   else
     echo "Ignoring $f because its file name does not match MVIMG*jpg pattern"
